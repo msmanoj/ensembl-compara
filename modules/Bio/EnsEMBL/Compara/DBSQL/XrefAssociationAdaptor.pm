@@ -95,7 +95,7 @@ my $get_associations_direct = q/
 select dbprimary_acc,count(*) as cnt from gene_tree_root r  
 join gene_tree_node n using (root_id)  
 join seq_member m using (seq_member_id)  
-join member_xref mg on (m.gene_member_id=mg.gene_member_id)
+join member_xref mg USE INDEX FOR JOIN (PRIMARY) on (m.gene_member_id=mg.gene_member_id)
 join external_db e using (external_db_id)  
 where r.root_id=? and e.db_name=?
 group by dbprimary_acc,db_name order by cnt desc, dbprimary_acc asc
